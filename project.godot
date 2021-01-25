@@ -67,6 +67,7 @@ config/icon="res://icon.png"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/enable=false
 gdscript/warnings/unused_class_variable=true
 gdscript/warnings/unsafe_property_access=true
