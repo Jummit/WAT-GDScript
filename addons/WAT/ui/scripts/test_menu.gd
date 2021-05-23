@@ -43,7 +43,10 @@ func _add_menu(dir: Reference, idx: int) -> void:
 		menu.add_submenu_item(dir.path, dir.name)
 		menu.set_item_icon(idx, Icon.FOLDER)
 		
-		var test_idx: int = 0
+		dir_menu.add_icon_item(Icon.PLAY, "Run All")
+		dir_menu.add_icon_item(Icon.DEBUG, "Debug All")
+		
+		var test_idx: int = 2
 		for test in dir.tests:
 			var test_menu: PopupMenu = PopupMenu.new()
 			test_menu.name = test.name
@@ -56,8 +59,14 @@ func _add_menu(dir: Reference, idx: int) -> void:
 			var method_idx: int = 0
 			if not test.methods.empty():
 				for method in test.methods:
-						test_menu.add_item(method.replace("_", " ").replace("test ", ""))
+						var method_menu: PopupMenu = PopupMenu.new()
+						method_menu.name = method.replace("_", " ").replace("test ", "")
+						method_menu.popup_exclusive = not Engine.is_editor_hint()
+						test_menu.add_child(method_menu, USE_LEGIBLE_UNIQUE_NAME)
+						test_menu.add_submenu_item(method_menu.name, method_menu.name)
 						test_menu.set_item_icon(method_idx, Icon.FUNCTION)
+						method_menu.add_icon_item(Icon.PLAY, "Run Method")
+						method_menu.add_icon_item(Icon.DEBUG, "Debug Method")
 						method_idx += 1
 						
 	for subdir in dir.subdirs:
