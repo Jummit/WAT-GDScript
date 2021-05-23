@@ -6,14 +6,12 @@ enum { RUN_ALL, RUN_DIR, RUN_SCRIPT, RUN_TAG, RUN_METHOD, RUN_FAILURES }
 signal _tests_selected
 var testdir: Reference = load("res://addons/WAT/editor/test_gatherer.gd").discover()
 
-# WE DO NOT WANT TO AUTO-REFRESH
-# WE ONLY REFRESH IF DIRECTORY INFORMATION CHANGES
-# IS THERE AN EASY TO DO THIS (EDITORFILESYSTEM MAYBE?)
-
 # TODO
-# TagEditor
-# JSON Load/Save Meta
-# OnSave/Move/Deleted Update
+# Add Metadata so we can execute test runs
+# Track Files so we know where they are using the editor-filesystem..
+# ..also see how far back this is supported and if resource-saved will also work?
+# Save/Load JSON Metadata and implement Tagged Tests using it
+# NOTE: We do not want to auto-refresh tests. We only update on change (this may require a parent dir reference for some issues)
 
 class Icon:
 	const FOLDER: Texture = preload("res://addons/WAT/assets/folder.png")
@@ -38,13 +36,6 @@ func _ready() -> void:
 
 func _add_menu(dir: Reference, idx: int) -> void:
 	if not dir.tests.empty():
-		# Add RunAll, DebugAll, RunAllNested, DebugAllNested
-		# We also need to add script menus?
-		# And Tags and MetaData
-		# And JSON LOAD/SAVE (probably bet for different script)
-		# We also need a large index so we can remove or delete scripts...
-		# ..or just set them as invalid
-		# ..but then how do we reorganize the menu?
 		var dir_menu: PopupMenu = PopupMenu.new()
 		dir_menu.popup_exclusive = not Engine.is_editor_hint()
 		dir_menu.name = dir.name
