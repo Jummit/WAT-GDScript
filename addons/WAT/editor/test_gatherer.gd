@@ -70,13 +70,21 @@ class TestScript extends Reference:
 	var tags: Array = [] # TODO
 	var passing: bool = false # TODO
 	var name: String setget, _get_name
+	var methods: Array = []
 	
 	func _init(_path: String, _gdscript: GDScript) -> void:
 		path = _path
 		gdscript = _gdscript
+		set_test_methods()
 		
 	func _get_name() -> String:
-		return path.substr(path.find_last("/") + 1)
+		return path.substr(path.find_last("/") + 1).replace(".", " ").replace("gd", "").replace("test", "")
+		
+	func set_test_methods() -> void:
+		methods = []
+		for method in gdscript.get_script_method_list():
+			if method.name.begins_with("test"):
+				methods.append(method.name)
 	
 #func _initialize() -> void:
 #	primary = TestDirectory.new("res://tests")
