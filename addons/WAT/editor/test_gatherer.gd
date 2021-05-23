@@ -1,20 +1,94 @@
 extends Reference
 
+const DO_NOT_SEARCH_PARENT_DIRECTORIES: bool = true
+
+
+class TestDirectory extends Reference:
+	var path: String
+	var subdirs: Array = []
+	var tests: Array = []
+	var subdir_count: int setget ,_get_subdir_count
+	var test_count: int setget ,_get_test_count
+	var _dir: Directory
+	
+	func _init(_path: String) -> void:
+		path = _path
+	
+	func _get_subdir_count() -> int:
+		return subdirs.size()
+		
+	func _get_test_count() -> int:
+		return tests.size()
+		
+	func open() -> void:
+		_dir = Directory.new()
+		var err: int = _dir.open(path)
+		if err != OK:
+			push_warning("Cannot open %s due to error %s" % [path, err])
+	
+	func populate() -> void:
+		_dir.list_dir_begin(DO_NOT_SEARCH_PARENT_DIRECTORIES)
+		var name: String = _dir.get_next()
+		while name != BLANK:
+			if _is_valid_test(name):
+				tests.append(TestScript.new("%s/%s" % [path, name], load("%s/%s" % [path, name])))
+			elif _dir.dir_exists(name):
+				subdirs.append(TestDirectory.new("%s/%s" % [path, name]))
+			name = _dir.get_next()
+		_dir.list_dir_end()
+		
+		for subdir in subdirs:
+			subdir.open()
+			subdir.populate()
+		
+	func _add_test(name: String) -> void:
+		var fullpath: String = "%/%" % [path, name]
+		var script: GDScript = load(fullpath)
+		tests.append(TestScript.new(fullpath, script))
+		
+	func _add_subdir(name: String) -> void:
+		var fullpath: String = "%s/%s" % [path, name]
+		subdirs.append(TestDirectory.new(fullpath))
+		
+	func _is_valid_test(name: String) -> bool:
+		var fullpath: String = "%s/%s" % [path, name]
+		return fullpath.ends_with(".gd") and fullpath != "res:///addons/WAT/core/test/test.gd" and load(fullpath).get("TEST")
+		
+class TestScript extends Reference:
+	var path: String
+	var gdscript: GDScript
+	var tags: Array = [] # TODO
+	var passing: bool = false # TODO
+	
+	func _init(_path: String, _gdscript: GDScript) -> void:
+		path = _path
+		gdscript = _gdscript
+	
+#func _initialize() -> void:
+#	primary = TestDirectory.new("res://tests")
+#	primary.populate()
+	
+static func discover() -> TestDirectory:
+	var primary: TestDirectory = TestDirectory.new("res://tests")
+	primary.open()
+	primary.populate()
+	return primary
+
 const BLANK: String = ""
 const Settings: Script = preload("res://addons/WAT/settings.gd")
 var tests: Dictionary
 
-func discover() -> Dictionary:
-	tests.clear()
-	tests = {dirs = [], scripts = {}, all = []}
-	_discover()
-	var metadata = _get_metadata()
-	for path in tests.scripts:
-		if(metadata.has(path)):
-			tests.scripts[path]["tags"] = metadata[path]["tags"]
-			if(metadata[path].has("passing")):
-				tests.scripts[path]["passing"] = metadata[path]["passing"]
-	return tests
+#func discover() -> Dictionary:
+#	tests.clear()
+#	tests = {dirs = [], scripts = {}, all = []}
+#	_discover()
+#	#var metadata = _get_metadata()
+##	for path in tests.scripts:
+##		if(metadata.has(path)):
+##			tests.scripts[path]["tags"] = metadata[path]["tags"]
+##			if(metadata[path].has("passing")):
+##				tests.scripts[path]["passing"] = metadata[path]["passing"]
+#	return tests
 
 func _discover(path: String = Settings.test_directory()) -> Array:
 	tests.dirs.append(path)
@@ -49,26 +123,26 @@ func _discover(path: String = Settings.test_directory()) -> Array:
 	tests.all += scripts
 	return scripts
 	
-func _get_metadata() -> Dictionary:
-	var path: String = ProjectSettings.get_setting("WAT/Test_Metadata_Directory")
-	var file: File = File.new()
-	var err: int = file.open(path + "/test_metadata.json", File.READ)
-	if err != OK:
-		push_warning(err as String)
-		return {}
-	var metadata: Dictionary = JSON.parse(file.get_as_text()).result
-	file.close()
-	return metadata
-	
-func save(data: Dictionary) -> void:
-	var path: String = ProjectSettings.get_setting("WAT/Test_Metadata_Directory")
-	var file: File = File.new()
-	var err: int = file.open(path + "/test_metadata.json", File.WRITE)
-	if err != OK:
-		push_warning(err as String)
-	for test in data.scripts:
-		var value = data.scripts[test]
-		value.erase("script")
-	var val: String = JSON.print(data.scripts, "\t")
-	file.store_string(val)
-	file.close()
+#func _get_metadata() -> Dictionary:
+#	var path: String = ProjectSettings.get_setting("WAT/Test_Metadata_Directory")
+#	var file: File = File.new()
+#	var err: int = file.open(path + "/test_metadata.json", File.READ)
+#	if err != OK:
+#		push_warning(err as String)
+#		return {}
+#	var metadata: Dictionary = JSON.parse(file.get_as_text()).result
+#	file.close()
+#	return metadata
+#
+#func save(data: Dictionary) -> void:
+#	var path: String = ProjectSettings.get_setting("WAT/Test_Metadata_Directory")
+#	var file: File = File.new()
+#	var err: int = file.open(path + "/test_metadata.json", File.WRITE)
+#	if err != OK:
+#		push_warning(err as String)
+#	for test in data.scripts:
+#		var value = data.scripts[test]
+#		value.erase("script")
+#	var val: String = JSON.print(data.scripts, "\t")
+#	file.store_string(val)
+#	file.close()

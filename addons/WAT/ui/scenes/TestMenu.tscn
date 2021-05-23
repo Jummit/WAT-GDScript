@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/WAT/ui/scripts/test_menu.gd" type="Script" id=1]
+[ext_resource path="res://addons/WAT/assets/failed.png" type="Texture" id=2]
+[ext_resource path="res://addons/WAT/assets/play_debug.png" type="Texture" id=3]
+[ext_resource path="res://addons/WAT/assets/play.png" type="Texture" id=4]
+[ext_resource path="res://addons/WAT/assets/label.png" type="Texture" id=5]
 
 [node name="TestMenu" type="Button"]
 margin_left = 32.0
@@ -9,10 +13,14 @@ margin_bottom = 24.0
 text = "Select Test"
 flat = true
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Directories" type="PopupMenu" parent="."]
 margin_right = 20.0
 margin_bottom = 20.0
+items = [ "Run All", ExtResource( 4 ), 0, false, false, 0, 0, null, "", false, "Debug All", ExtResource( 3 ), 0, false, false, 1, 0, null, "", false, "Run Failed", ExtResource( 2 ), 0, false, false, 2, 0, null, "", false, "Debug Failed", ExtResource( 2 ), 0, false, false, 3, 0, null, "", false, "Tags", ExtResource( 5 ), 0, false, false, 4, 0, null, "", false ]
 
 [node name="Scripts" type="PopupMenu" parent="Directories"]
 margin_right = 20.0
