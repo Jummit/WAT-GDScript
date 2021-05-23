@@ -13,6 +13,12 @@ var testdir: Reference = load("res://addons/WAT/editor/test_gatherer.gd").discov
 # Save/Load JSON Metadata and implement Tagged Tests using it
 # NOTE: We do not want to auto-refresh tests. We only update on change (this may require a parent dir reference for some issues)
 
+# NOTE
+# Rather than check on save/delete, we could connect the popups to a generic 
+# about_to_show method, do a quick for loop to check their validity if dirs or test
+# ..and if they don't exist, then we remove them! This would save a hell lot of time
+# The only real problem here is that we don't account for tests being moved
+
 class Icon:
 	const FOLDER: Texture = preload("res://addons/WAT/assets/folder.png")
 	const PLAY: Texture = preload("res://addons/WAT/assets/play.png")
@@ -76,3 +82,5 @@ func _add_menu(dir: Reference, idx: int) -> void:
 func _setup_editor_assets(reg) -> void:
 	pass
 
+func _on_resource_saved(res) -> void:
+	print(res.resource_path)
