@@ -6,7 +6,7 @@ onready var QuickstartDebug: Button = $Menu/QuickRunAllDebug
 onready var Results: TabContainer = $Results
 onready var ViewMenu: PopupMenu = $Menu/ResultsMenu.get_popup()
 onready var RunSettings: HBoxContainer = $Menu/RunSettings
-onready var RunMenu: Button = $Menu/TestMenu
+onready var RunMenu: MenuButton = $Menu/TestMenu
 onready var Summary: HBoxContainer = $Summary
 onready var Menu: Control = $Menu
 signal test_strategy_set
@@ -36,7 +36,8 @@ func _repeat(tests: Array, repeat: int) -> Array:
 
 # Loads scaled assets like icons and fonts
 func _setup_editor_assets(assets_registry):
-	Summary._setup_editor_assets(assets_registry)
-	Menu._setup_editor_assets(assets_registry)
-	Results._setup_editor_assets(assets_registry)
+	pass
+#	Summary._setup_editor_assets(assets_registry)
+#	Menu._setup_editor_assets(assets_registry)
+#	Results._setup_editor_assets(assets_registry)
 

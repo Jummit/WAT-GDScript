@@ -6,9 +6,12 @@ const DO_NOT_SEARCH_PARENT_DIRECTORIES: bool = true
 class TestDirectory extends Reference:
 	var path: String
 	var subdirs: Array = []
-	var tests: Array = []
+	var all_subdirs: Array = []
+	var tests: Array = [] # Tests that within the directory
+	var all_tests: Array = [] # Tests that are within all subdirs
 	var subdir_count: int setget ,_get_subdir_count
 	var test_count: int setget ,_get_test_count
+	var name: String setget ,_get_dir_name
 	var _dir: Directory
 	
 	func _init(_path: String) -> void:
@@ -19,6 +22,9 @@ class TestDirectory extends Reference:
 		
 	func _get_test_count() -> int:
 		return tests.size()
+		
+	func _get_dir_name() -> String:
+		return path.replace("res://", "").capitalize().replace("/", "|")
 		
 	func open() -> void:
 		_dir = Directory.new()
@@ -37,9 +43,13 @@ class TestDirectory extends Reference:
 			name = _dir.get_next()
 		_dir.list_dir_end()
 		
+		all_tests = tests
+		all_subdirs = subdirs
 		for subdir in subdirs:
 			subdir.open()
 			subdir.populate()
+			all_tests += subdir.all_tests
+			all_subdirs += subdir.all_subdirs
 		
 	func _add_test(name: String) -> void:
 		var fullpath: String = "%/%" % [path, name]
@@ -59,10 +69,14 @@ class TestScript extends Reference:
 	var gdscript: GDScript
 	var tags: Array = [] # TODO
 	var passing: bool = false # TODO
+	var name: String setget, _get_name
 	
 	func _init(_path: String, _gdscript: GDScript) -> void:
 		path = _path
 		gdscript = _gdscript
+		
+	func _get_name() -> String:
+		return path.substr(path.find_last("/") + 1)
 	
 #func _initialize() -> void:
 #	primary = TestDirectory.new("res://tests")

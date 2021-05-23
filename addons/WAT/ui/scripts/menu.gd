@@ -3,7 +3,7 @@ tool
 
 onready var QuickRunAll: Button = $QuickRunAll
 onready var QuickRunAllDebug: Button = $QuickRunAllDebug
-onready var TestMenu: Button = $TestMenu
+onready var TestMenu: MenuButton = $TestMenu
 
 func _ready():
 	if not Engine.is_editor_hint():

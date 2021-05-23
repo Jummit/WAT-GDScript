@@ -11,13 +11,13 @@ const PluginAssetsRegistry: Script = preload("res://addons/WAT/ui/scripts/plugin
 var instance: Control
 var docker: Docker
 var script_editor: ScriptEditor
-var assets_registry = PluginAssetsRegistry.new(self)
+#var assets_registry = PluginAssetsRegistry.new(self)
 
-func _ready():
-	# Editor assets must be setup at ready time to give GUI scripts a chance to 
-	# ready themselves first and store references to other nodes, which will be 
-	# needed to call_setup_editor_assets() on.
-	instance._setup_editor_assets(assets_registry)
+#func _ready():
+#	# Editor assets must be setup at ready time to give GUI scripts a chance to 
+#	# ready themselves first and store references to other nodes, which will be 
+#	# needed to call_setup_editor_assets() on.
+#	instance._setup_editor_assets(assets_registry)
 
 func _enter_tree():
 	Settings.initialize()
