@@ -64,6 +64,12 @@ class TestDirectory extends Reference:
 		var fullpath: String = "%s/%s" % [path, name]
 		return fullpath.ends_with(".gd") and fullpath != "res:///addons/WAT/core/test/test.gd" and load(fullpath).get("TEST")
 		
+	func get_tests() -> Array:
+		var scripts: Array = []
+		for test in all_tests:
+			scripts.append(test)
+		return all_tests
+		
 class TestScript extends Reference:
 	var path: String
 	var gdscript: GDScript
@@ -85,6 +91,9 @@ class TestScript extends Reference:
 		for method in gdscript.get_script_method_list():
 			if method.name.begins_with("test"):
 				methods.append(method.name)
+				
+	func get_tests() -> Array:
+		return [self]
 	
 #func _initialize() -> void:
 #	primary = TestDirectory.new("res://tests")

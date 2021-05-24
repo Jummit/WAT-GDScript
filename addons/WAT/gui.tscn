@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/WAT/ui/scripts/gui.gd" type="Script" id=1]
-[ext_resource path="res://addons/WAT/ui/scenes/Core.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/WAT/assets/failed.png" type="Texture" id=2]
+[ext_resource path="res://addons/WAT/assets/folder.png" type="Texture" id=3]
+[ext_resource path="res://addons/WAT/assets/play.png" type="Texture" id=4]
+[ext_resource path="res://addons/WAT/assets/play_debug.png" type="Texture" id=5]
+[ext_resource path="res://addons/WAT/assets/label.png" type="Texture" id=6]
+[ext_resource path="res://addons/WAT/ui/scripts/core.gd" type="Script" id=7]
+[ext_resource path="res://addons/WAT/Launcher.gd" type="Script" id=8]
+[ext_resource path="res://addons/WAT/ui/scenes/Results.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/WAT/ui/scenes/Menu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/WAT/ui/scenes/Summary.tscn" type="PackedScene" id=11]
 
 [node name="Tests" type="PanelContainer"]
 anchor_right = 1.0
@@ -13,8 +22,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Core" parent="." instance=ExtResource( 3 )]
+[node name="Core" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 593.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" parent="Core" instance=ExtResource( 10 )]
+margin_right = 697.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TestMenu" parent="Core/Menu" index="2"]
+items = [ "Run All", ExtResource( 4 ), 0, false, false, 0, 0, null, "", false, "Debug All", ExtResource( 5 ), 0, false, false, 1, 0, null, "", false, "Run Failed", ExtResource( 2 ), 0, false, false, 2, 0, null, "", false, "Run Tagged", ExtResource( 6 ), 0, false, false, 3, 0, null, "", false, "res://tests/emptytest", ExtResource( 3 ), 0, false, false, 4, 0, null, "Tests|emptytest", false, "res://tests/integration", ExtResource( 3 ), 0, false, false, 5, 0, null, "Tests|integration", false, "res://tests/unit", ExtResource( 3 ), 0, false, false, 6, 0, null, "Tests|unit", false, "res://tests/unit/unit2", ExtResource( 3 ), 0, false, false, 7, 0, null, "Tests|unit|unit 2", false ]
+
+[node name="ResultsMenu" parent="Core/Menu" index="3"]
+items = [ "Expand All", null, 0, false, false, 0, 0, null, "", false, "Collapse All", null, 0, false, false, 1, 0, null, "", false, "Expand All Failures", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="Links" parent="Core/Menu" index="6"]
+items = [ "Support WAT", null, 0, false, false, 0, 0, "https://ko-fi.com/alexanddraw", "", false, "Report An Issue", null, 0, false, false, 1, 0, "https://github.com/CodeDarigan/WAT-GDScript/issues/new", "", false, "Request Docs", null, 0, false, false, 2, 0, "https://github.com/CodeDarigan/WAT-Documentation/issues/new", "", false, "Online Docs", null, 0, false, false, 3, 0, "https://wat.readthedocs.io/en/latest/", "", false ]
+
+[node name="Results" parent="Core" instance=ExtResource( 9 )]
+margin_right = 1010.0
+margin_bottom = 560.0
+
+[node name="Summary" parent="Core" instance=ExtResource( 11 )]
+margin_top = 564.0
+margin_bottom = 586.0
+
+[node name="Runs" parent="Core/Summary" index="0"]
+margin_bottom = 22.0
+
+[node name="Tests" parent="Core/Summary" index="1"]
+margin_bottom = 22.0
+
+[node name="Passing" parent="Core/Summary" index="2"]
+margin_bottom = 22.0
+
+[node name="Failing" parent="Core/Summary" index="3"]
+margin_bottom = 22.0
+
+[node name="Time" parent="Core/Summary" index="4"]
+margin_bottom = 22.0
+
+[node name="Launcher" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[editable path="Core/Menu"]
+[editable path="Core/Results"]
+[editable path="Core/Summary"]

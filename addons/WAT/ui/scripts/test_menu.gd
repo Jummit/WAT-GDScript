@@ -5,6 +5,8 @@ const USE_LEGIBLE_UNIQUE_NAME: bool = true
 enum { RUN_ALL, RUN_DIR, RUN_SCRIPT, RUN_TAG, RUN_METHOD, RUN_FAILURES }
 signal _tests_selected
 var testdir: Reference = load("res://addons/WAT/editor/test_gatherer.gd").discover()
+signal tests_selected
+signal tests_debug_selected
 
 # TODO
 # Add Metadata so we can execute test runs
@@ -18,6 +20,19 @@ var testdir: Reference = load("res://addons/WAT/editor/test_gatherer.gd").discov
 # about_to_show method, do a quick for loop to check their validity if dirs or test
 # ..and if they don't exist, then we remove them! This would save a hell lot of time
 # The only real problem here is that we don't account for tests being moved
+
+class Strategy:
+	var run_type: int
+	var data: Reference
+	
+	func _init(_run_type: int, _data: Reference) -> void:
+		run_type = _run_type
+		data = _data
+	
+enum IndexType {
+	RUN,
+	DEBUG,
+}
 
 class Icon:
 	const FOLDER: Texture = preload("res://addons/WAT/assets/folder.png")
@@ -48,9 +63,12 @@ func _add_menu(dir: Reference, idx: int) -> void:
 		menu.add_child(dir_menu, USE_LEGIBLE_UNIQUE_NAME)
 		menu.add_submenu_item(dir.path, dir.name)
 		menu.set_item_icon(idx, Icon.FOLDER)
-		
+	
 		dir_menu.add_icon_item(Icon.PLAY, "Run All")
+		dir_menu.set_item_metadata(0, Strategy.new(IndexType.RUN, dir))
 		dir_menu.add_icon_item(Icon.DEBUG, "Debug All")
+		dir_menu.set_item_metadata(1, Strategy.new(IndexType.DEBUG, dir))
+		dir_menu.connect("index_pressed", self, "_on_idx_pressed", [dir_menu])
 		
 		var test_idx: int = 2
 		for test in dir.tests:
@@ -60,9 +78,14 @@ func _add_menu(dir: Reference, idx: int) -> void:
 			dir_menu.add_child(test_menu, USE_LEGIBLE_UNIQUE_NAME)
 			dir_menu.add_submenu_item(test.name, test.name)
 			dir_menu.set_item_icon(test_idx, Icon.SCRIPT)
+			
+			test_menu.add_icon_item(Icon.PLAY, "Run All")
+			test_menu.set_item_metadata(0, Strategy.new(IndexType.RUN, test))
+			test_menu.add_icon_item(Icon.DEBUG, "Debug All")
+			test_menu.set_item_metadata(0, Strategy.new(IndexType.DEBUG, test))
 			test_idx += 1
 			
-			var method_idx: int = 0
+			var method_idx: int = 2
 			if not test.methods.empty():
 				for method in test.methods:
 						var method_menu: PopupMenu = PopupMenu.new()
@@ -72,12 +95,24 @@ func _add_menu(dir: Reference, idx: int) -> void:
 						test_menu.add_submenu_item(method_menu.name, method_menu.name)
 						test_menu.set_item_icon(method_idx, Icon.FUNCTION)
 						method_menu.add_icon_item(Icon.PLAY, "Run Method")
+						# Add a Method Object? To set item data
 						method_menu.add_icon_item(Icon.DEBUG, "Debug Method")
+						# Add a Method Object? To set item data
 						method_idx += 1
 						
 	for subdir in dir.subdirs:
 		idx += int(not subdir.tests.empty())
 		_add_menu(subdir, idx)
+		
+func _on_idx_pressed(idx: int, menu: PopupMenu = null) -> void:
+	var strategy: Strategy = menu.get_item_metadata(idx)
+	match strategy.run_type:
+		IndexType.RUN:
+			emit_signal("tests_selected", strategy.data)
+			print("Run %s" % strategy.data.path)
+		IndexType.DEBUG:
+			print("Debug %s " % strategy.data.path)
+			emit_signal("tests_debug_selected", strategy.data)
 
 func _setup_editor_assets(reg) -> void:
 	pass

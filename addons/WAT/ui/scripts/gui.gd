@@ -13,19 +13,27 @@ onready var TestMenu: MenuButton = $Core/Menu/TestMenu
 onready var Results: TabContainer = $Core/Results
 onready var Summary: HBoxContainer = $Core/Summary
 onready var Core: VBoxContainer = $Core
+onready var Launcher: Node = $Launcher
 var instance: TestRunner
 var server: Server
 signal launched_via_editor
 signal function_selected
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		_set_window_size()
-		# No argument makes the AssetsRegistry default to a scale of 1, which
-		# should make every icon look normal when the Tests UI launches
-		# outside of the editor.
-		_setup_editor_assets(PluginAssetsRegistry.new())
-	$Core.connect("test_strategy_set", self, "_on_test_strategy_set")
+#	$Core/Menu/QuickRunAll.connect("pressed", Launcher, "_on_RunButton_pressed")
+#	$Core/Menu/QuickRunAllDebug.connect("pressed", Launcher, "_on_DebugButton_pressed")
+	
+	$Core/Menu/TestMenu.connect("tests_selected", Launcher, "_on_RunButton_pressed")
+	$Core/Menu/TestMenu.connect("tests_debug_selected", Launcher, "_on_DebugButton_pressed")
+	
+	
+#	if not Engine.is_editor_hint():
+#		_set_window_size()
+#		# No argument makes the AssetsRegistry default to a scale of 1, which
+#		# should make every icon look normal when the Tests UI launches
+#		# outside of the editor.
+#		_setup_editor_assets(PluginAssetsRegistry.new())
+#	$Core.connect("test_strategy_set", self, "_on_test_strategy_set")
 	Results.connect("function_selected", self, "_on_function_selected")
 	
 func _on_function_selected(path: String, function: String) -> void:

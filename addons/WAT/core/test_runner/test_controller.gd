@@ -39,10 +39,10 @@ func _init() -> void:
 	add_child(_yielder)
 	_yielder.connect("finished", self, "_next")
 
-func run(test: Dictionary) -> void:
+func run(test: Reference) -> void:
 	Log.method("run", self)
-	_test = test["script"].new()
-	_case = Case.new(_test, test["path"])
+	_test = test.gdscript.new()
+	_case = Case.new(_test, test.path)
 	_test.asserts = _assertions
 	_test.parameters = _parameters
 	_test.recorder = Recorder
@@ -50,14 +50,15 @@ func run(test: Dictionary) -> void:
 	_test.direct = _director
 	_test.yielder = _yielder
 	_test.any = Any
-	if test.has("method"):
-		_methods.append(test["method"])
-	else:
-		_methods = _test.methods()
-	if _methods.empty():
-		push_warning("No Tests found in " + test["path"] + "")
-		call_deferred("_complete")
-		return
+	#if test.has("method"):
+	_methods = test.methods
+#		_methods.append(test["method"])
+#	else:
+#		_methods = _test.methods()
+#	if _methods.empty():
+#		push_warning("No Tests found in " + test["path"] + "")
+#		call_deferred("_complete")
+#		return
 	_test.connect("cancelled", self, "_on_test_cancelled")
 	_test.connect("described", _case, "_on_test_method_described")
 	_assertions.connect("asserted", _case, "_on_asserted")
