@@ -85,6 +85,7 @@ func _add_menu(dir: Reference, idx: int) -> void:
 			test_menu.set_item_metadata(0, Strategy.new(IndexType.RUN, test))
 			test_menu.add_icon_item(Icon.DEBUG, "Debug All")
 			test_menu.set_item_metadata(0, Strategy.new(IndexType.DEBUG, test))
+			test_menu.connect("index_pressed", self, "_on_idx_pressed", [test_menu])
 			test_idx += 1
 			
 			var method_idx: int = 2

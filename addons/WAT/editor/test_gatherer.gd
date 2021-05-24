@@ -100,7 +100,7 @@ class TestScript extends Reference:
 	func to_dictionary() -> Dictionary:
 		return {
 			gdscript = gdscript,
-			methods = methods,
+			methods = method_names,
 			path = path
 		}
 		
