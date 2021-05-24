@@ -25,7 +25,7 @@ func _enter_tree():
 	instance = GUI.instance()
 	docker = Docker.new(self, instance)
 	script_editor = get_editor_interface().get_script_editor()
-	instance.connect("launched_via_editor", self, "_on_launched_via_editor")
+	instance.get_node("Launcher").connect("launched_via_editor", self, "_on_launched_via_editor")
 	instance.connect("function_selected", self, "_on_function_selected")
 	add_child(docker)
 	yield(get_tree().create_timer(0.5), "timeout")
