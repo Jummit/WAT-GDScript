@@ -77,6 +77,7 @@ class TestScript extends Reference:
 	var passing: bool = false # TODO
 	var name: String setget, _get_name
 	var methods: Array = []
+	var method_names: PoolStringArray = []
 	
 	func _init(_path: String, _gdscript: GDScript) -> void:
 		path = _path
@@ -90,11 +91,40 @@ class TestScript extends Reference:
 		methods = []
 		for method in gdscript.get_script_method_list():
 			if method.name.begins_with("test"):
-				methods.append(method.name)
+				methods.append(Method.new(path, gdscript, method.name))
+				method_names.append(method.name)
 				
 	func get_tests() -> Array:
 		return [to_dictionary()]
 		
+	func to_dictionary() -> Dictionary:
+		return {
+			gdscript = gdscript,
+			methods = methods,
+			path = path
+		}
+		
+class Method extends Reference:
+	var path: String
+	var gdscript: GDScript
+	var name: String #setget, _get_name
+	var methods: Array = []
+	
+	# We create a Method Object that defacto acts as a Test Reference but..
+	# ..it only has a single method (itself) in its methods so we don't need..
+	# ..to do any special checking
+	func _init(_path: String, _gdscript: GDScript, method: String) -> void:
+		path = _path
+		gdscript = _gdscript
+		methods = [method]
+		name = method
+		
+	func _get_name() -> String:
+		return name #.replace("_", " ").replace("test ", "")
+	#	return path.substr(path.find_last("/") + 1).replace(".", " ").replace("gd", "").replace("test", "")
+	func get_tests() -> Array:
+		return [to_dictionary()]
+	
 	func to_dictionary() -> Dictionary:
 		return {
 			gdscript = gdscript,

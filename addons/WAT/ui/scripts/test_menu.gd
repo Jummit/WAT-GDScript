@@ -50,7 +50,9 @@ func _ready() -> void:
 	menu = get_popup()
 	menu.popup_exclusive = not Engine.is_editor_hint()
 	menu.add_icon_item(Icon.PLAY, "Run All")
+	menu.set_item_metadata(0, Strategy.new(IndexType.RUN, testdir))
 	menu.add_icon_item(Icon.DEBUG, "Debug All")
+	menu.set_item_metadata(1, Strategy.new(IndexType.DEBUG, testdir))
 	menu.add_icon_item(Icon.FAILED, "Run Failed")
 	menu.add_icon_item(Icon.TAG, "Run Tagged")
 	_add_menu(testdir, 3)
@@ -89,15 +91,16 @@ func _add_menu(dir: Reference, idx: int) -> void:
 			if not test.methods.empty():
 				for method in test.methods:
 						var method_menu: PopupMenu = PopupMenu.new()
-						method_menu.name = method.replace("_", " ").replace("test ", "")
+						method_menu.name = method.name
 						method_menu.popup_exclusive = not Engine.is_editor_hint()
 						test_menu.add_child(method_menu, USE_LEGIBLE_UNIQUE_NAME)
-						test_menu.add_submenu_item(method_menu.name, method_menu.name)
+						test_menu.add_submenu_item(method.name, method.name)
 						test_menu.set_item_icon(method_idx, Icon.FUNCTION)
 						method_menu.add_icon_item(Icon.PLAY, "Run Method")
-						# Add a Method Object? To set item data
+						method_menu.set_item_metadata(0, Strategy.new(IndexType.RUN, method))
 						method_menu.add_icon_item(Icon.DEBUG, "Debug Method")
-						# Add a Method Object? To set item data
+						method_menu.set_item_metadata(1, Strategy.new(IndexType.DEBUG, method))
+						method_menu.connect("index_pressed", self, "_on_idx_pressed", [method_menu])
 						method_idx += 1
 						
 	for subdir in dir.subdirs:
