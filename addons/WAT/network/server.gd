@@ -9,14 +9,8 @@ var tests: Array = []
 var threads: int = 1
 signal run_completed
 
-func _ready() -> void:
-	close()
-	_peer = NetworkedMultiplayerENet.new()
-	host()
-	
-func host() -> void:
+func _create_peer() -> void:
 	var err: int = _peer.create_server(ProjectSettings.get_setting("WAT/Port"))
-	_peer.allow_object_decoding = true
 	if err != OK:
 		push_warning(err as String)
 	custom_multiplayer.network_peer = _peer

@@ -1,18 +1,13 @@
 extends "custom_networking.gd"
 
-const IPAddress: String = "127.0.0.1"
+
 signal test_strategy
 
-func _ready() -> void:
-	join()
-	
-func join() -> void:
-	_peer = NetworkedMultiplayerENet.new()
-	var err: int = _peer.create_client("127.0.0.1", ProjectSettings.get_setting("WAT/Port"))
+func _create_peer() -> void:
+	var err: int = _peer.create_client("127.0.0.1", _port())
 	if err != OK:
 		push_warning(err as String)
 	custom_multiplayer.connect("connection_failed", self, "_on_connection_failed")
-	custom_multiplayer.network_peer = _peer
 	
 puppet func test_strategy_received(tests: Array, threads: int) -> void:
 	emit_signal("test_strategy", tests, threads)
