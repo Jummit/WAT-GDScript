@@ -67,8 +67,8 @@ class TestDirectory extends Reference:
 	func get_tests() -> Array:
 		var scripts: Array = []
 		for test in all_tests:
-			scripts.append(test)
-		return all_tests
+			scripts.append(test.to_dictionary())
+		return scripts
 		
 class TestScript extends Reference:
 	var path: String
@@ -93,7 +93,14 @@ class TestScript extends Reference:
 				methods.append(method.name)
 				
 	func get_tests() -> Array:
-		return [self]
+		return [to_dictionary()]
+		
+	func to_dictionary() -> Dictionary:
+		return {
+			gdscript = gdscript,
+			methods = methods,
+			path = path
+		}
 	
 #func _initialize() -> void:
 #	primary = TestDirectory.new("res://tests")

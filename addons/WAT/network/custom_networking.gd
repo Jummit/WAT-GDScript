@@ -5,6 +5,7 @@ const NodeAdded: String = "node_added"
 func _init() -> void:
 	custom_multiplayer = MultiplayerAPI.new()
 	custom_multiplayer.set_root_node(self)
+	custom_multiplayer.allow_object_decoding = true
 
 func _process(delta: float) -> void:
 	if custom_multiplayer.has_network_peer():

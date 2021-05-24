@@ -69,7 +69,7 @@ func _on_run_completed(results: Array = []) -> void:
 	if is_instance_valid(instance):
 		instance.queue_free()
 	Summary.summarize(results)
-	TestMenu.set_last_run_success(results)
+	#TestMenu.set_last_run_success(results)
 	XML.write(results)
 	Results.display(results)
 

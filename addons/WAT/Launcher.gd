@@ -1,3 +1,4 @@
+tool
 extends Node
 
 const TestRunner: GDScript = preload("res://addons/WAT/core/test_runner/test_runner.gd")
@@ -16,6 +17,8 @@ func _on_RunButton_pressed(test: Reference) -> void:
 	
 func _on_DebugButton_pressed(tests) -> void:
 	print("Debugging Tests")
+	get_parent()._launch_via_editor(tests.get_tests(), 1)
+	#func _launch_via_editor(tests: Array, threads: int) -> void:
 	
 func _on_run_completed(results) -> void:
 	get_parent().get_node("Core/Results").display(results)

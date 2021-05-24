@@ -39,7 +39,7 @@ func _init() -> void:
 	add_child(_yielder)
 	_yielder.connect("finished", self, "_next")
 
-func run(test: Reference) -> void:
+func run(test: Dictionary) -> void:
 	Log.method("run", self)
 	_test = test.gdscript.new()
 	_case = Case.new(_test, test.path)
