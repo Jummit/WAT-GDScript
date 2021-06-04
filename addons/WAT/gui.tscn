@@ -1,7 +1,35 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://addons/WAT/ui/scripts/gui.gd" type="Script" id=1]
-[ext_resource path="res://addons/WAT/ui/scenes/Core.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/WAT/assets/script.png" type="Texture" id=2]
+[ext_resource path="res://addons/WAT/assets/timer.png" type="Texture" id=3]
+[ext_resource path="res://addons/WAT/ui/scenes/TestMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/WAT/ui/scenes/RunSettings.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/WAT/assets/play_debug.png" type="Texture" id=6]
+[ext_resource path="res://addons/WAT/assets/play.png" type="Texture" id=7]
+[ext_resource path="res://addons/WAT/assets/failed.png" type="Texture" id=8]
+[ext_resource path="res://addons/WAT/assets/passed.png" type="Texture" id=9]
+[ext_resource path="res://addons/WAT/ui/scripts/result_forest.gd" type="Script" id=10]
+[ext_resource path="res://addons/WAT/ui/scripts/core.gd" type="Script" id=11]
+[ext_resource path="res://addons/WAT/ui/scripts/save_metadata.gd" type="Script" id=12]
+[ext_resource path="res://addons/WAT/ui/scripts/menu.gd" type="Script" id=13]
+[ext_resource path="res://addons/WAT/ui/scripts/summary.gd" type="Script" id=14]
+[ext_resource path="res://addons/WAT/ui/scripts/links.gd" type="Script" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="InputEventKey" id=6]
+
+[sub_resource type="ShortCut" id=7]
+shortcut = SubResource( 6 )
 
 [node name="Tests" type="PanelContainer"]
 anchor_right = 1.0
@@ -13,8 +41,170 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Core" parent="." instance=ExtResource( 3 )]
+[node name="Core" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 593.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="HBoxContainer" parent="Core"]
+margin_right = 697.0
+margin_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuickRunAll" type="Button" parent="Core/Menu"]
+margin_top = 4.0
+margin_right = 16.0
+margin_bottom = 20.0
+hint_tooltip = "Run All (Non Debug)"
+size_flags_horizontal = 0
+size_flags_vertical = 4
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+shortcut = SubResource( 7 )
+icon = ExtResource( 7 )
+flat = true
+
+[node name="QuickRunAllDebug" type="Button" parent="Core/Menu"]
+margin_left = 20.0
+margin_top = 4.0
+margin_right = 36.0
+margin_bottom = 20.0
+hint_tooltip = "Run All (With Debugger)"
+size_flags_horizontal = 0
+size_flags_vertical = 4
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+shortcut = SubResource( 7 )
+icon = ExtResource( 6 )
+flat = true
+
+[node name="TestMenu" parent="Core/Menu" instance=ExtResource( 4 )]
+margin_left = 40.0
+margin_right = 122.0
+size_flags_horizontal = 0
+size_flags_vertical = 5
+
+[node name="ResultsMenu" type="MenuButton" parent="Core/Menu"]
+margin_left = 126.0
+margin_right = 222.0
+margin_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 5
+text = "Filter Results"
+items = [ "Expand All", null, 0, false, false, 0, 0, null, "", false, "Collapse All", null, 0, false, false, 1, 0, null, "", false, "Expand All Failures", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="RunSettings" parent="Core/Menu" instance=ExtResource( 5 )]
+margin_left = 226.0
+margin_right = 540.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="SaveMetadata" type="Button" parent="Core/Menu"]
+margin_left = 544.0
+margin_right = 648.0
+margin_bottom = 24.0
+hint_tooltip = "Save metadata before uploading to source control if you use continous integration."
+size_flags_vertical = 5
+text = "Save Metadata"
+flat = true
+script = ExtResource( 12 )
+
+[node name="Links" type="MenuButton" parent="Core/Menu"]
+margin_left = 652.0
+margin_right = 697.0
+margin_bottom = 24.0
+size_flags_horizontal = 0
+size_flags_vertical = 5
+text = "Links"
+items = [ "Support WAT", null, 0, false, false, 0, 0, "https://ko-fi.com/alexanddraw", "", false, "Report An Issue", null, 0, false, false, 1, 0, "https://github.com/CodeDarigan/WAT-GDScript/issues/new", "", false, "Request Docs", null, 0, false, false, 2, 0, "https://github.com/CodeDarigan/WAT-Documentation/issues/new", "", false, "Online Docs", null, 0, false, false, 3, 0, "https://wat.readthedocs.io/en/latest/", "", false ]
+script = ExtResource( 15 )
+
+[node name="Results" type="TabContainer" parent="Core"]
+margin_top = 28.0
+margin_right = 1010.0
+margin_bottom = 560.0
+rect_min_size = Vector2( 0, 300 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Summary" type="HBoxContainer" parent="Core"]
+margin_top = 564.0
+margin_right = 266.0
+margin_bottom = 586.0
+size_flags_horizontal = 2
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Runs" type="Button" parent="Core/Summary"]
+margin_right = 50.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 0 )
+button_mask = 0
+text = "0"
+icon = ExtResource( 7 )
+flat = true
+
+[node name="Tests" type="Button" parent="Core/Summary"]
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 0 )
+button_mask = 0
+text = "0"
+icon = ExtResource( 2 )
+flat = true
+
+[node name="Passing" type="Button" parent="Core/Summary"]
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 0 )
+button_mask = 0
+text = "0"
+icon = ExtResource( 9 )
+flat = true
+
+[node name="Failing" type="Button" parent="Core/Summary"]
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 0 )
+button_mask = 0
+text = "0"
+icon = ExtResource( 8 )
+flat = true
+
+[node name="Time" type="Button" parent="Core/Summary"]
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 0 )
+button_mask = 0
+text = "0"
+icon = ExtResource( 3 )
+flat = true
