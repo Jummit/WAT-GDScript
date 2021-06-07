@@ -12,7 +12,7 @@ const LIST_DIR: String = "-list_dir"
 const PASSED: int = 0
 const FAILED: int = 1
 var test
-const TestRunner: GDScript = preload("res://addons/WAT/core/test_runner/test_runner.gd")
+const TestRunner: GDScript = preload("res://addons/third_party/WAT/core/test_runner/test_runner.gd")
 
 var _runner: Node
 var _start_time: float
@@ -24,7 +24,7 @@ func arguments() -> Array:
 	return Array(OS.get_cmdline_args()).pop_back().split("=") as Array
 
 func parse(arguments: Array) -> void:
-	test = load("res://addons/WAT/editor/test_gatherer.gd").new().discover()
+	test = load("res://addons/third_party/WAT/editor/test_gatherer.gd").new().discover()
 	var command: String = arguments.pop_front()
 	match command:
 		RUN_ALL:
@@ -128,7 +128,7 @@ func test_directory() -> String:
 func set_last_run_success(results) -> void:
 	for result in results:
 		test.scripts[result["path"]]["passing"] = result.success
-	load("res://addons/WAT/editor/test_gatherer.gd").new().save(test)
+	load("res://addons/third_party/WAT/editor/test_gatherer.gd").new().save(test)
 
 func _run(tests: Array, repeats: int = 0, threads: int = 0) -> void:
 	var toRun = repeat(tests, repeats)
@@ -155,7 +155,7 @@ func _on_run_completed(caselist: Array) -> void:
 		else:
 			display_failures(case)
 	display_summary(cases)
-	load("res://addons/WAT/editor/junit_xml.gd").write(caselist, cases.seconds)
+	load("res://addons/third_party/WAT/editor/junit_xml.gd").write(caselist, cases.seconds)
 	set_last_run_success(caselist)
 	set_exit_code(cases)
 	get_tree().quit()

@@ -1,6 +1,6 @@
 extends Node
 
-const Log: Script = preload("res://addons/WAT/log.gd")
+const Log: Script = preload("res://addons/third_party/WAT/log.gd")
 const TestController: Script = preload("test_controller.gd")
 signal run_completed
 

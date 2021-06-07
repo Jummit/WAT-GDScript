@@ -4,10 +4,10 @@ extends EditorPlugin
 const RUN_CURRENT_SCENE_GODOT_3_2: int = 39
 const RUN_CURRENT_SCENE_GODOT_3_1: int = 33
 const Title: String = "Tests"
-const Settings: Script = preload("res://addons/WAT/settings.gd")
-const GUI: PackedScene = preload("res://addons/WAT/gui.tscn")
-const Docker: Script = preload("res://addons/WAT/ui/scripts/docker.gd")
-const PluginAssetsRegistry: Script = preload("res://addons/WAT/ui/scripts/plugin_assets_registry.gd")
+const Settings: Script = preload("res://addons/third_party/WAT/settings.gd")
+const GUI: PackedScene = preload("res://addons/third_party/WAT/gui.tscn")
+const Docker: Script = preload("res://addons/third_party/WAT/ui/scripts/docker.gd")
+const PluginAssetsRegistry: Script = preload("res://addons/third_party/WAT/ui/scripts/plugin_assets_registry.gd")
 var instance: Control
 var docker: Docker
 var script_editor: ScriptEditor
@@ -48,14 +48,14 @@ func _on_launched_via_editor() -> void:
 	var version = Engine.get_version_info()
 	if get_editor_interface().has_method("play_custom_scene"):
 		print("launch?")
-		get_editor_interface().play_custom_scene("res://addons/WAT/core/test_runner/TestRunner.tscn")
+		get_editor_interface().play_custom_scene("res://addons/third_party/WAT/core/test_runner/TestRunner.tscn")
 	elif version.major == 3 and version.minor == 1:
 		print("branch 2")
-		get_editor_interface().open_scene_from_path("res://addons/WAT/core/test_runner/TestRunner.tscn")
+		get_editor_interface().open_scene_from_path("res://addons/third_party/WAT/core/test_runner/TestRunner.tscn")
 		get_editor_interface().get_parent()._menu_option(RUN_CURRENT_SCENE_GODOT_3_1)
 	elif version.major == 3 and version.minor == 2:
 		print("branch 3")
-		get_editor_interface().open_scene_from_path("res://addons/WAT/core/test_runner/TestRunner.tscn")
+		get_editor_interface().open_scene_from_path("res://addons/third_party/WAT/core/test_runner/TestRunner.tscn")
 		get_editor_interface().get_parent()._menu_option(RUN_CURRENT_SCENE_GODOT_3_2)
 	else:
 		print("branch 4")

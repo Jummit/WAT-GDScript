@@ -1,7 +1,7 @@
 extends Reference
 
 const BLANK: String = ""
-const Settings: Script = preload("res://addons/WAT/settings.gd")
+const Settings: Script = preload("res://addons/third_party/WAT/settings.gd")
 var tests: Dictionary
 
 func discover() -> Dictionary:

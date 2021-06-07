@@ -9,7 +9,7 @@ var PLAY_ICON: Texture
 var PLAY_DEBUG_ICON: Texture
 var LABEL_ICON: Texture
 var FUNCTION_ICON: Texture
-const TestGatherer: Script = preload("res://addons/WAT/editor/test_gatherer.gd")
+const TestGatherer: Script = preload("res://addons/third_party/WAT/editor/test_gatherer.gd")
 const ABOUT_TO_SHOW: String = "about_to_show"
 const IDX_PRESSED: String = "index_pressed"
 const ON_IDX_PRESSED: String = "_on_idx_pressed"

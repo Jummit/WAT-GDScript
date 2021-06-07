@@ -3,7 +3,7 @@
 extends Reference
 
 # Replace 'demo_plugin' with your plugin's name
-const PLUGIN_ABSOLUTE_PATH_PREFIX = "res://addons/WAT/"
+const PLUGIN_ABSOLUTE_PATH_PREFIX = "res://addons/third_party/WAT/"
 
 var plugin: EditorPlugin
 

@@ -1,5 +1,5 @@
 extends WAT.Test
-#extends "res://addons/WAT/test/test.gd"
+#extends "res://addons/third_party/WAT/test/test.gd"
 
 func title():
 	return "Given a Boolean Assertion"

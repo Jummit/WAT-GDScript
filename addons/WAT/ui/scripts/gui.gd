@@ -1,14 +1,14 @@
 extends PanelContainer
 tool
 
-const Log: Script = preload("res://addons/WAT/log.gd")
+const Log: Script = preload("res://addons/third_party/WAT/log.gd")
 
 # Resources require tool to work inside the editor whereas..
 # ..scripts objects without tool can be called from tool based scripts
-const TestRunner: Script = preload("res://addons/WAT/core/test_runner/test_runner.gd")
-const Server: Script = preload("res://addons/WAT/network/server.gd")
-const XML: Script = preload("res://addons/WAT/editor/junit_xml.gd")
-const PluginAssetsRegistry: Script = preload("res://addons/WAT/ui/scripts/plugin_assets_registry.gd")
+const TestRunner: Script = preload("res://addons/third_party/WAT/core/test_runner/test_runner.gd")
+const Server: Script = preload("res://addons/third_party/WAT/network/server.gd")
+const XML: Script = preload("res://addons/third_party/WAT/editor/junit_xml.gd")
+const PluginAssetsRegistry: Script = preload("res://addons/third_party/WAT/ui/scripts/plugin_assets_registry.gd")
 onready var TestMenu: Button = $Core/Menu/TestMenu
 onready var Results: TabContainer = $Core/Results
 onready var Summary: HBoxContainer = $Core/Summary
