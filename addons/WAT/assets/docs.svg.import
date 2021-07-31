@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/docs.svg"
+source_file="docs.svg"
 dest_files=[ "res://.import/docs.svg-a649391eeb4006a0bb13c9007d30760f.stex" ]
 
 [params]

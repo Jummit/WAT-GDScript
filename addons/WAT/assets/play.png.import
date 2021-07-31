@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/play.png"
+source_file="play.png"
 dest_files=[ "res://.import/play.png-2962300029223d688c79411a6cda4a6d.stex" ]
 
 [params]
@@ -21,9 +21,9 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=0
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

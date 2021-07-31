@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/failed.png"
+source_file="failed.png"
 dest_files=[ "res://.import/failed.png-18188bee7d18ad72bc7cbc6222c355b1.stex" ]
 
 [params]
@@ -21,8 +21,8 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
-flags/anisotropic=true
+flags/mipmaps=false
+flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

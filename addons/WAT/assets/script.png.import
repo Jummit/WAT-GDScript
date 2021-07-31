@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/script.png"
+source_file="script.png"
 dest_files=[ "res://.import/script.png-6590c0f9543eaeb2a6b5b8ca50aae436.stex" ]
 
 [params]

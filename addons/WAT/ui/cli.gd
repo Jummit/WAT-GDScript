@@ -1,8 +1,8 @@
 extends Node
 
-const XML: GDScript = preload("res://addons/WAT/editor/junit_xml.gd")
-const FileSystem: GDScript = preload("res://addons/WAT/filesystem/filesystem.gd")
-const TestRunner: GDScript = preload("res://addons/WAT/runner/TestRunner.gd")
+const XML: GDScript = preload("../editor/junit_xml.gd")
+const FileSystem: GDScript = preload("../filesystem/filesystem.gd")
+const TestRunner: GDScript = preload("../runner/TestRunner.gd")
 var filesystem: FileSystem = FileSystem.new()
 
 func _get_tests(filepath) -> Array:

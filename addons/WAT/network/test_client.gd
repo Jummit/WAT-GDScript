@@ -1,4 +1,4 @@
-extends "res://addons/WAT/network/test_network.gd"
+extends "test_network.gd"
 
 func _ready() -> void:
 	custom_multiplayer.connect("connection_failed", self, "_on_connection_failed")

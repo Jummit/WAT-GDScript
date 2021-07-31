@@ -2,9 +2,6 @@
 
 extends Reference
 
-# Replace 'demo_plugin' with your plugin's name
-const PLUGIN_ABSOLUTE_PATH_PREFIX = "res://addons/WAT/"
-
 var plugin
 
 # Stores already loaded assets so multiple loads of the same asset 
@@ -22,7 +19,7 @@ func _init(plugin_ = null):
 # Can load scaled asset using an already loaded asset 
 func load_asset(asset):
 	if asset is String:
-		return load_asset(load(PLUGIN_ABSOLUTE_PATH_PREFIX + asset))
+		return load_asset(load(get_script().resource_path.get_base_dir().get_base_dir().plus_file(asset)))
 	else:
 		# Godot compares by reference by default for dictionaries that use objects as keys
 		if loaded_editor_assets.has(asset):

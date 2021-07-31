@@ -12,20 +12,20 @@ var rerun_method: bool
 var p: Dictionary
 var _last_assertion_passed: bool = false
 
-var recorder: Script = preload("res://addons/WAT/test/recorder.gd")
-var any: Script = preload("res://addons/WAT/test/any.gd")
-var asserts = preload("res://addons/WAT/assertions/assertions.gd").new()
-var direct = preload("res://addons/WAT/double/factory.gd").new()
-var _parameters = preload("res://addons/WAT/test/parameters.gd").new()
-var _watcher = preload("res://addons/WAT/test/watcher.gd").new()
-var _registry = preload("res://addons/WAT/double/registry.gd").new()
-var _yielder: Timer = preload("res://addons/WAT/test/yielder.gd").new()
+var recorder: Script = preload("recorder.gd")
+var any: Script = preload("any.gd")
+var asserts = preload("../assertions/assertions.gd").new()
+var direct = preload("../double/factory.gd").new()
+var _parameters = preload("parameters.gd").new()
+var _watcher = preload("watcher.gd").new()
+var _registry = preload("../double/registry.gd").new()
+var _yielder: Timer = preload("yielder.gd").new()
 var _case
 var _methods = []
 		
 func setup(directory = "", filepath = "", methods = []):
 	_methods = methods
-	_case = preload("res://addons/WAT/test/case.gd").new(directory, filepath, title(), self)
+	_case = preload("case.gd").new(directory, filepath, title(), self)
 	return self
 
 func run():

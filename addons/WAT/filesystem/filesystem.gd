@@ -3,9 +3,9 @@ extends Reference
 class_name _watFileSystem
 
 const DO_NOT_SEARCH_PARENT_DIRECTORIES: bool = true
-const Settings: Script = preload("res://addons/WAT/settings.gd")
-const YieldCalculator: GDScript = preload("res://addons/WAT/filesystem/yield_calculator.gd")
-const FileObjects: GDScript = preload("res://addons/WAT/filesystem/objects.gd")
+const Settings: Script = preload("../settings.gd")
+const YieldCalculator: GDScript = preload("yield_calculator.gd")
+const FileObjects: GDScript = preload("objects.gd")
 const TestDirectory: GDScript = FileObjects.TestDirectory
 const TestScript: GDScript = FileObjects.TestScript
 const TestMethod: GDScript = FileObjects.TestMethod
@@ -102,7 +102,7 @@ func _update(testdir: TestDirectory) -> void:
 func _is_valid_test(p: String) -> bool:
 	if not (p.ends_with(".gd") or p.ends_with(".cs") or p.ends_with(".gdc")):
 		return false
-	if (p == "res://addons/WAT/test/test.gd" or p == "res://addons/WAT/test/test.gdc" or p == "res://addons/WAT/mono/Test.cs"):
+	if (p.ends_with("/WAT/test/test.gd") or p.ends_with("/WAT/test/test.gdc") or p.ends_with("/WAT/mono/Test.cs")):
 		return false
 	if not (load(p).get("IS_WAT_TEST") or load(p).new().get("IS_WAT_TEST")):
 		return false 

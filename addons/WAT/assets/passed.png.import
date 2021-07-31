@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/passed.png"
+source_file="passed.png"
 dest_files=[ "res://.import/passed.png-1606da9dc4505c2bac72d61e0f5f988c.stex" ]
 
 [params]

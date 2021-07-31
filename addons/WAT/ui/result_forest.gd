@@ -4,7 +4,7 @@ tool
 var FUNCTION: Texture
 var PASSED_ICON: Texture
 var FAILED_ICON: Texture
-const ResultTree = preload("res://addons/WAT/ui/result_tree.gd")
+const ResultTree = preload("result_tree.gd")
 var _results: Array
 var _tabs = {}
 signal function_selected

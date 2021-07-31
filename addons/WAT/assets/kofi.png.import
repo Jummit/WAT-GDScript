@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/kofi.png"
+source_file="kofi.png"
 dest_files=[ "res://.import/kofi.png-25130db51d1b80d6426df72322b3f642.stex" ]
 
 [params]

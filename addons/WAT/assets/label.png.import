@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/label.png"
+source_file="label.png"
 dest_files=[ "res://.import/label.png-6b04b72410cd91559f10027900e1c444.stex" ]
 
 [params]

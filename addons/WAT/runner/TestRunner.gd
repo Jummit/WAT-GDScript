@@ -2,7 +2,7 @@ tool
 extends Node
 class_name _watTestRunner
 
-const Settings: GDScript = preload("res://addons/WAT/settings.gd")
+const Settings: GDScript = preload("../settings.gd")
 const Splitter: GDScript = preload("splitter.gd")
 const COMPLETED: String = "completed"
 signal completed
@@ -16,7 +16,7 @@ func _ready() -> void:
 func run(tests, repeat, threads) -> Array:
 	var results: Array = []
 	tests = _repeat(tests, repeat)
-	var testthreads = Splitter.split(tests, threads)
+	var testthreads = Splitter.split(tests, preload("test_controller.gd").new(), threads)
 	for thread in testthreads:
 		add_child(thread.controller)
 		thread.start(self, "_run", thread)

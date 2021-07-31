@@ -5,8 +5,8 @@ extends PanelContainer
 # Resources require tool to work inside the editor whereas..
 # ..scripts objects without tool can be called from tool based scripts
 
-const XML: Script = preload("res://addons/WAT/editor/junit_xml.gd")
-const PluginAssetsRegistry: Script = preload("res://addons/WAT/ui/plugin_assets_registry.gd")
+const XML: Script = preload("../editor/junit_xml.gd")
+const PluginAssetsRegistry: Script = preload("plugin_assets_registry.gd")
 
 onready var TestMenu: Button = $Core/Menu/TestMenu
 onready var Results: TabContainer = $Core/Results
@@ -81,7 +81,7 @@ func _launch_runner(tests: Array, repeat: int, threads: int) -> Array:
 	return results
 	
 func _launch_debugger(tests: Array, repeat: int, threads: int) -> Array:
-	_plugin.get_editor_interface().play_custom_scene("res://addons/WAT/runner/TestRunner.tscn")
+	_plugin.get_editor_interface().play_custom_scene(get_script().resource_path.get_base_dir().get_base_dir().plus_file("runner/TestRunner.tscn"))
 	_plugin.make_bottom_panel_item_visible(self)
 	yield(Server, "network_peer_connected")
 	Server.send_tests(tests, repeat, threads)
@@ -95,7 +95,7 @@ func setup_editor_context(plugin: Node) -> void:
 
 # Loads scaled assets like icons and fonts
 func _setup_editor_assets(assets_registry):
-	load("res://addons/WAT/ui/setup_editor_assets.gd").new().setup(self, assets_registry)
+	preload("setup_editor_assets.gd").new().setup(self, assets_registry)
 
 
 func _on_function_selected(path: String, function: String) -> void:

@@ -1,5 +1,5 @@
 tool
-extends "res://addons/WAT/network/test_network.gd"
+extends "test_network.gd"
 
 enum STATE { SENDING, RECEIVING }
 signal network_peer_connected

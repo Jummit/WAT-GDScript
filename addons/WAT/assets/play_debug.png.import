@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/play_debug.png"
+source_file="play_debug.png"
 dest_files=[ "res://.import/play_debug.png-b9aaa3991495e16a0dfe9e46268ae0a2.stex" ]
 
 [params]

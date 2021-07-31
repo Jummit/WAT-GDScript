@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/play_failed.png"
+source_file="play_failed.png"
 dest_files=[ "res://.import/play_failed.png-206503f73ae232b267852de2008ff514.stex" ]
 
 [params]

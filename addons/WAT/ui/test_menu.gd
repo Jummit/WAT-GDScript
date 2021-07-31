@@ -2,15 +2,15 @@ tool
 extends Button
 
 
-var FOLDER = preload("res://addons/WAT/assets/folder.png")
-var FAILED = preload("res://addons/WAT/assets/failed.png")
-var SCRIPT = preload("res://addons/WAT/assets/script.png")
-var PLAY = preload("res://addons/WAT/assets/play.png")
-var DEBUG = preload("res://addons/WAT/assets/play_debug.png")
-var TAG = preload("res://addons/WAT/assets/label.png")
-var FUNCTION = preload("res://addons/WAT/assets/function.png")
+var FOLDER = preload("../assets/folder.png")
+var FAILED = preload("../assets/failed.png")
+var SCRIPT = preload("../assets/script.png")
+var PLAY = preload("../assets/play.png")
+var DEBUG = preload("../assets/play_debug.png")
+var TAG = preload("../assets/label.png")
+var FUNCTION = preload("../assets/function.png")
 
-const Settings: GDScript = preload("res://addons/WAT/settings.gd")
+const Settings: GDScript = preload("../settings.gd")
 var filesystem: Reference # Set by GUI
 var _menu: PopupMenu = PopupMenu.new()
 var _id: int = 0

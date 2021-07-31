@@ -3,10 +3,10 @@ extends EditorPlugin
 
 
 const Title: String = "Tests"
-const Settings: Script = preload("res://addons/WAT/settings.gd")
-const GUI: PackedScene = preload("res://addons/WAT/gui.tscn")
-const Docker: Script = preload("res://addons/WAT/ui/docker.gd")
-const PluginAssetsRegistry: Script = preload("res://addons/WAT/ui/plugin_assets_registry.gd")
+const Settings: Script = preload("settings.gd")
+const GUI: PackedScene = preload("gui.tscn")
+const Docker: Script = preload("ui/docker.gd")
+const PluginAssetsRegistry: Script = preload("ui/plugin_assets_registry.gd")
 var instance: Control
 var docker: Docker
 var assets_registry = PluginAssetsRegistry.new(self)

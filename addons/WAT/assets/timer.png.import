@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/WAT/assets/timer.png"
+source_file="timer.png"
 dest_files=[ "res://.import/timer.png-16c233793d4e507805f02aeac7ec3915.stex" ]
 
 [params]
